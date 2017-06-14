@@ -1,0 +1,25 @@
+@model DocsWeb.Models.Page
+@{
+    ViewData["Title"] = Model.Title;
+}
+<div class="row">
+    <div class="col-xs-3">
+        <div id="tree"></div>
+    </div>
+    <div class="col-xs-9">
+        <div>@Html.Raw(Model.Content)</div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+        $('#tree').treeview({
+            data: @Json.Serialize(Model.TreeViewItems),
+            onNodeSelected: function (event, data) {
+                window.location.href = data.href;
+            }
+        });
+    </script>
+}
